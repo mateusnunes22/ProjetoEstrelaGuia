@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="templates/default.xhtml"
+	xmlns:b="http://bootsfaces.net/ui" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<ui:define name="title">Registro de Agendamentos</ui:define>
+	<ui:define name="content">
+		<f:view>
+			<script src="Scripts/jquery.maskedinput.min.js"
+				type="text/javascript"></script>
+			<script src="Scripts/jquery.price_format.1.7.js"
+				type="text/javascript"></script>
+			<div id="impmi">
+				<h:form>
+					<b:row>
+						<b:column offset="3" span="4">
+							<h2>Registro de Agendamento</h2>
+						</b:column>
+					</b:row>
+					<br />
+					<b:row>
+						<b:column offset="3" span="1">
+							<h4>
+								<h:outputLabel value="Data: " />
+							</h4>
+						</b:column>
+						<b:column span="3">
+							<b:datepicker tooltip="Dia do Agendamento"
+								value="#{agendamentoBean.agendamento.data}" required="true" />
+							<!-- <rich:calendar id="datin" popup="true" datePattern="dd/MM/yyyy"
+								required="true"
+								requiredMessage="#{msg['agendamento.required.data']}"
+								converterMessage="#{msg['default.validacao.data']}"
+								enableManualInput="true"
+								value="#{agendamentoBean.agendamento.data}">
+							</rich:calendar> -->
+						</b:column>
+					</b:row>
+
+					<b:row>
+						<b:column offset="3" span="1">
+							<h4>
+								<h:outputLabel value="Funcionário: " />
+							</h4>
+						</b:column>
+						<b:column span="3">
+							<h:selectOneMenu
+								value="#{agendamentoBean.agendamento.funcionario}"
+								required="true"
+								requiredMessage="#{msg['agendamento.required.funcionario']}"
+								converter="#{funcionarioConverter}" styleClass="form-control">
+								<f:selectItem itemValue="null" itemLabel="(Selecione)"
+									noSelectionOption="true" />
+								<f:selectItems value="#{agendamentoBean.funcionarios}" var="f"
+									itemValue="#{f}" itemLabel="#{f.nome}" />
+							</h:selectOneMenu>
+						</b:column>
+					</b:row>
+					<b:row>
+						<b:column offset="3" span="1">
+							<h4>
+								<h:outputLabel value="Hora: " />
+							</h4>
+						</b:column>
+						<b:column span="3">
+							<h:inputText id="hora"
+								value="#{agendamentoBean.agendamento.hora}" required="true"
+								requiredMessage="#{msg['agendamento.required.hora']}"
+								maxlength="5" styleClass="form-control" size="5">
+								<f:convertDateTime type="time" pattern="HH:mm" />
+							</h:inputText>
+							<rich:jQuery selector="#hora" query="mask('99:99')"
+								timing="domready" />
+						</b:column>
+					</b:row>
+
+					<b:row>
+						<b:column offset="3" span="1">
+							<h4>
+								<h:outputLabel value="Categoria: " />
+							</h4>
+						</b:column>
+						<b:column span="3">
+							<h:selectOneMenu id="categorias"
+								value="#{agendamentoBean.categoria}"
+								converter="#{categoriaConverter}" styleClass="form-control">
+								<f:selectItem itemValue="null" itemLabel="(Selecione)"
+									noSelectionOption="true" />
+								<f:selectItems value="#{agendamentoBean.categorias}" var="c"
+									itemValue="#{c}" itemLabel="#{c.descricao}" />
+								<f:ajax render="servicos valorcaixaent2 qvalor"
+									listener="#{agendamentoBean.categoriaChanged}"
+									resetValues="true" />
+							</h:selectOneMenu>
+						</b:column>
+					</b:row>
+					<b:row>
+						<b:column offset="3" span="1">
+							<h4>
+								<h:outputLabel value="Serviço: " />
+							</h4>
+						</b:column>
+						<b:column span="3">
+							<h:selectOneMenu id="servicos"
+								value="#{agendamentoBean.agendamento.servico}"
+								converter="#{servicoConverter}" required="true"
+								styleClass="form-control"
+								requiredMessage="#{msg['agendamento.required.servico']}">
+								<f:selectItem itemValue="null" itemLabel="(Selecione)"
+									noSelectionOption="true" />
+								<f:selectItems value="#{agendamentoBean.servicos}" var="servico"
+									itemValue="#{servico}" itemLabel="#{servico.nome}" />
+								<f:ajax execute="change" render="valorcaixaent2 qvalor"
+									listener="#{agendamentoBean.servicoChanged}" resetValues="true" />
+							</h:selectOneMenu>
+						</b:column>
+					</b:row>
+					<b:row>
+						<b:column offset="3" span="1">
+							<h4>
+								<h:outputLabel value="Valor: " />
+							</h4>
+						</b:column>
+						<b:column span="3">
+							<h:inputText id="valorcaixaent2"
+								value="#{agendamentoBean.agendamento.valor}" required="true"
+								requiredMessage="#{msg['agendamento.required.valor']}" size="20"
+								styleClass="form-control">
+								<f:convertNumber pattern="#,##0.00"></f:convertNumber>
+							</h:inputText>
+							<rich:jQuery selector="#valorcaixaent2" timing="domready"
+								query="priceFormat({
+						    		prefix: '',
+						    		centsSeparator: ',',
+						    		thousandsSeparator: '.'
+								})" />
+						</b:column>
+					</b:row>
+
+					<b:row>
+						<b:column offset="3" span="1">
+							<h4>
+								<h:outputLabel value="Observação: " />
+							</h4>
+						</b:column>
+						<b:column span="3">
+							<h:inputText value="#{agendamentoBean.agendamento.observacao}"
+								styleClass="form-control" size="20"></h:inputText>
+						</b:column>
+					</b:row>
+					<b:row>
+						<b:column offset="6" span="1">
+							<b:commandButton value="Adicionar"
+								action="#{agendamentoBean.salvar}" look="primary" />
+						</b:column>
+					</b:row>
+
+
+
+					<br></br>
+					<b:row>
+						<b:column offset="3" span="3">
+							<rich:messages layout="table" infoLabelClass="messageInfo"
+								errorLabelClass="messageError">
+
+								<f:facet name="infoMarker">
+									<h:graphicImage value="imagenss/check.png" />
+								</f:facet>
+
+								<f:facet name="errorMarker">
+									<h:graphicImage value="imagenss/fail.png" />
+								</f:facet>
+
+							</rich:messages>
+						</b:column>
+					</b:row>
+					<br />
+					<b:row>
+						<b:column offset="3" span="3">
+							<rich:dataTable id="Contaspagar2"
+								onrowmouseover="this.style.backgroundColor='#F1F1F1'"
+								onrowmouseout="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+								style="width:750px; border:2px" value="#{agendamentoBean.lista}"
+								var="c" rendered="#{not empty agendamentoBean.lista}" rows="20">
+
+
+								<f:facet name="header">
+									<rich:columnGroup>
+										<rich:column colspan="15">
+											<h:outputText value="Lista de agendamentos" />
+										</rich:column>
+										<rich:column breakRowBefore="true">
+											<h:outputText value="Funcionario" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="Cliente" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="Data" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="Hora" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="Dia da semana" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="Serviço" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="Remover" />
+										</rich:column>
+									</rich:columnGroup>
+								</f:facet>
+
+								<rich:column>
+									<h:outputText value="#{c.funcionario.nome}" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{c.cliente.nome}" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{c.data}">
+										<f:convertDateTime pattern="dd/MM/yyyy" />
+									</h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{c.hora}">
+										<f:convertDateTime pattern="HH:mm" />
+									</h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{c.diaSemana}" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{c.servico.nome}" />
+								</rich:column>
+								<rich:column>
+									<h:commandButton action="#{agendamentoBean.remover(c)}"
+										image="LayoutNovo/imagens/remover.png" />
+								</rich:column>
+
+								<f:facet name="footer">
+									<rich:dataScroller id="ds" renderIfSinglePage="false"></rich:dataScroller>
+								</f:facet>
+							</rich:dataTable>
+						</b:column>
+					</b:row>
+				</h:form>
+			</div>
+		</f:view>
+	</ui:define>
+</ui:composition>

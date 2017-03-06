@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="templates/default.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<ui:define name="title">Cadastro - Produto</ui:define>
+	<ui:define name="content">
+		<f:view>
+			<h:form>
+				<b:row>
+					<b:column offset="3" span="3">
+						<h2>Produto</h2>
+					</b:column>
+				</b:row>
+				<b:row>
+					<b:column offset="3" span="3">
+						<h3>Consulta/Cadastro de Produto</h3>
+					</b:column>
+				</b:row>
+				<b:row>
+					<b:column span="4" offset="3">
+						<h:inputText value="#{produtoBean.produtoList.texto}" size="40"
+							styleClass="form-control"></h:inputText>
+					</b:column>
+				</b:row>
+				<br />
+				<b:row>
+					<b:column offset="3" span="1">
+						<b:commandButton value="Buscar" action="#{produtoBean.atualizar}"
+							look="primary" />
+					</b:column>
+					<b:column span="1">
+						<b:commandButton action="#{produtoBean.novo}" value="Novo"
+							look="primary" />
+					</b:column>
+				</b:row>
+				<br />
+				<b:row>
+					<b:column offset="3" span="3">
+						<rich:dataTable id="Contaspagar"
+							onrowmouseover="this.style.backgroundColor='#F1F1F1'"
+							onrowmouseout="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+							style="width:750px; border:2px" value="#{produtoBean.lista}"
+							var="c" rendered="#{not empty produtoBean.lista}" rows="10">
+
+							<f:facet name="header">
+								<rich:columnGroup>
+									<rich:column colspan="5">
+										<h:outputText
+											value="Lista de Produtos (#{produtoBean.produtoList.size })" />
+									</rich:column>
+									<rich:column breakRowBefore="true">
+										<h:outputText value="Produto" />
+									</rich:column>
+									<rich:column>
+										<h:outputText value="Categoria" />
+									</rich:column>
+									<rich:column>
+										<h:outputText value="Valor Compra" />
+									</rich:column>
+									<rich:column>
+										<h:outputText value="Valor Venda" />
+									</rich:column>
+									<rich:column>
+										<h:outputText value="Editar" />
+									</rich:column>
+								</rich:columnGroup>
+							</f:facet>
+
+							<rich:column>
+								<h:outputText value="#{c.nome}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{c.categoria.descricao}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{c.valorCompra}">
+									<f:convertNumber pattern="#,##0.00"></f:convertNumber>
+								</h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{c.valorVenda}">
+									<f:convertNumber pattern="#,##0.00"></f:convertNumber>
+								</h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:commandButton action="#{produtoBean.editar(c)}"
+									image="LayoutNovo/imagens/editar.png" />
+							</rich:column>
+							<f:facet name="footer">
+								<rich:dataScroller id="ds" renderIfSinglePage="false"></rich:dataScroller>
+							</f:facet>
+
+						</rich:dataTable>
+					</b:column>
+				</b:row>
+			</h:form>
+		</f:view>
+	</ui:define>
+</ui:composition>

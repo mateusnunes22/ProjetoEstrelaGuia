@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui">
+<body>
+
+	<ui:composition>
+		<b:navBar inverse="false" class="col-md-offset-2 col-md-10">
+			<b:column offset="0" span="5">
+				<b:navbarLinks>
+					<li>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</li>
+					<li><ui:include
+							src="/snippets/painel_sistema_aniversariantes.xhtml" /></li>
+					<li><ui:include
+							src="/snippets/painel_sistema_agendamentos.xhtml" /></li>
+					<li><ui:include src="/snippets/painel_sistema_estoque.xhtml" />
+					</li>
+				</b:navbarLinks>
+			</b:column>
+		</b:navBar>
+		<!--<b:column span="2" class="sidebar">
+			<b:panel look="primary" title="Barra de Acesso">
+				<b:listLinks>
+					<b:navLink href="home.jsf" value="Vendas" icon="usd"
+						iconAlign="left" />
+					<b:dropMenu value="Cadastros" icon="pencil" iconAlign="left">
+						<b:navLink value="Cliente" href="clienteList.jsf"></b:navLink>
+						<b:navLink value="Categoria" href="categoriaList.jsf"></b:navLink>
+						<b:navLink value="Serviço" href="servicoList.jsf"></b:navLink>
+						<b:navLink value="Produto" href="produtoList.jsf"></b:navLink>
+						<b:navLink value="Funcionario" href="funcionarioList.jsf"></b:navLink>
+						<b:navLink value="Fornecedor" href="fornecedorList.jsf"></b:navLink>
+					</b:dropMenu>
+					<b:navLink href="compra.jsf" value="Compras" icon="shopping-cart"
+						iconAlign="left" />
+					<b:navLink href="despesa.jsf" value="Despesas" icon="minus"
+						iconAlign="left" />
+					<b:navLink href="estoqueList.jsf" value="Estoque" icon="tag"
+						iconAlign="left" />
+					<b:dropMenu value="Relatórios" icon="stats" iconAlign="left">
+						<b:navLink value="Clientes" href="clienteRelatorio.jsf"></b:navLink>
+						<b:navLink value="Vendas" href="vendaPorCategoriaRelatorio.jsf"></b:navLink>
+						<b:navLink value="Agendamentos" href="agendamentoRelatorio.jsf"></b:navLink>
+						<b:navLink value="Funcionários" href="funcionarioRelatorio.jsf"></b:navLink>
+						<b:navLink value="Compras" href="compraRelatorio.jsf"></b:navLink>
+						<b:navLink value="Despesas" href="despesaRelatorio.jsf"></b:navLink>
+						<b:navLink value="Rendimentos" href="rendimentoRelatorio.jsf"></b:navLink>
+						<b:navLink value="Auditorias" href="auditoriaRelatorio.jsf"></b:navLink>
+						<b:navLink value="Agendamentos" href="aniversarianteRelatorio.jsf"></b:navLink>
+					</b:dropMenu>
+					<b:navLink value="Sair" icon="off" iconAlign="left" />
+					<b:messages />
+				</b:listLinks>
+			</b:panel>
+		</b:column> -->
+		<div class="nav-side-menu">
+			<div class="brand">#{configuracaoRepo.nomeEmpresa}</div>
+			<i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse"
+				data-target="#menu-content"></i>
+
+			<div class="menu-list">
+
+				<ul id="menu-content" class="menu-content collapse out">
+					<li><a href="home.jsf" style="font-size: 16px;"> <i
+							class="glyphicon glyphicon-usd"></i> Vendas </a>
+					</li>
+
+					<li data-toggle="collapse" data-target="#products"><a href="#"
+						style="font-size: 16px;"><i class="glyphicon glyphicon-search"></i>
+							Consultas <span class="arrow"></span> </a>
+					</li>
+
+					<ul class="sub-menu collapse" id="products">
+						<li><a href="clienteList.jsf" style="font-size: 16px;">Cliente</a>
+						</li>
+						<li><a href="categoriaList.jsf" style="font-size: 16px;">Categoria</a>
+						</li>
+						<li><a href="servicoList.jsf" style="font-size: 16px;">Serviço</a>
+						</li>
+						<li><a href="produtoList.jsf" style="font-size: 16px;">Produto</a>
+						</li>
+						<li><a href="funcionarioList.jsf" style="font-size: 16px;">Funcionário</a>
+						</li>
+						<li><a href="fornecedorList.jsf" style="font-size: 16px;">Fornecedor</a>
+						</li>
+					</ul>
+
+					<li><a href="compra.jsf" style="font-size: 16px;"> <i
+							class="glyphicon glyphicon-shopping-cart"></i> Compras </a>
+					</li>
+
+					<li><a href="despesa.jsf" style="font-size: 16px;"> <i
+							class="glyphicon glyphicon-minus"></i> Despesas </a>
+					</li>
+
+					<li><a href="estoqueList.jsf" style="font-size: 16px;"> <i
+							class="glyphicon glyphicon-tag"></i> Estoque </a>
+					</li>
+
+					<li data-toggle="collapse" data-target="#service" class="collapsed"><a
+						href="#" style="font-size: 16px;"><i
+							class="glyphicon glyphicon-stats"></i> Relatórios <span
+							class="arrow"></span> </a>
+					</li>
+					<ul class="sub-menu collapse" id="service">
+						<li><a href="clienteRelatorio.jsf" style="font-size: 16px;">Clientes</a>
+						</li>
+						<li><a href="vendaPorCategoriaRelatorio.jsf"
+							style="font-size: 16px;">Vendas</a></li>
+						<li><a href="agendamentoRelatorio.jsf"
+							style="font-size: 16px;">Agendamentos</a></li>
+						<li><a href="funcionarioRelatorio.jsf"
+							style="font-size: 16px;">Funcionáros</a></li>
+						<li><a href="compraRelatorio.jsf" style="font-size: 16px;">Compras</a>
+						</li>
+						<li><a href="despesaRelatorio.jsf" style="font-size: 16px;">Despesas</a>
+						</li>
+						<li><a href="rendimentoRelatorio.jsf"
+							style="font-size: 16px;">Rendimentos</a></li>
+						<li><a href="auditoriaRelatorio.jsf" style="font-size: 16px;">Auditorias</a>
+						</li>
+						<li><a href="aniversarianteRelatorio.jsf"
+							style="font-size: 16px;">Aniversariantes</a></li>
+					</ul>
+					<li><h:form>
+							<h:commandLink action="#{usuarioBean.logout}"
+								style="font-size: 16px;"><i
+							class="glyphicon glyphicon-off"></i> Sair</h:commandLink>
+						</h:form>
+					</li>
+					<!-- <li><a href="#" style="font-size: 16px;"> <i
+							class="glyphicon glyphicon-off"></i> Sair </a></li> -->
+				</ul>
+			</div>
+		</div>
+	</ui:composition>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	>
+
+<h:body>
+	<ui:define name="title">Vendas e Agendamentos</ui:define>
+	<ui:composition template="templates/default.xhtml">
+		<ui:define name="content">
+			<f:view>
+				<b:row>
+					<b:column span="4" offset="3">
+						<h2>Vendas e Agendamentos</h2>
+					</b:column>
+				</b:row>
+				<h:form>
+					<b:row>
+						<b:column span="4" offset="3">
+							<h3>Cliente</h3>
+						</b:column>
+					</b:row>
+					<b:row>
+						<b:column span="4" offset="3">
+							<b:inputText styleClass="true"
+								value="#{clienteBean.clienteHome.texto}" size="32"
+								required="false" />
+						</b:column>
+					</b:row>
+					<b:row>
+						<b:column span="4" offset="3">
+							<b:commandButton look="primary" value="Atualizar"
+								action="#{clienteBean.atualizarHome}" />
+						</b:column>
+					</b:row>
+					<br />
+					<b:row>
+						<b:column span="4" offset="3">
+							<rich:dataTable id="venda" style="width: 540px; border: 2px"
+								rows="8" onrowmouseover="this.style.backgroundColor='#F1F1F1'"
+								onrowmouseout="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+								var="d" value="#{clienteBean.clientesHome}"
+								rendered="#{not empty clienteBean.clientesHome}">
+
+								<f:facet name="header">
+									<rich:columnGroup>
+										<rich:column colspan="5">
+											<h:outputText value="Busca por cliente" />
+										</rich:column>
+										<rich:column breakRowBefore="true">
+											<h:outputText value="Nome" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="Fone" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="Venda" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="Agendamento" />
+										</rich:column>
+									</rich:columnGroup>
+								</f:facet>
+
+								<rich:column>
+									<h:outputText value="#{d.nome}" />
+								</rich:column>
+
+								<rich:column>
+									<h:outputText value="#{d.fone}" />
+								</rich:column>
+
+								<rich:column>
+									<h:commandButton action="#{clienteBean.vender(d)}"
+										image="LayoutNovo/imagens/venda.png" />
+								</rich:column>
+
+								<rich:column>
+									<h:commandButton action="#{clienteBean.agendar(d)}"
+										image="LayoutNovo/imagens/agendamento.png" />
+								</rich:column>
+
+								<f:facet name="footer">
+									<rich:dataScroller id="paginacao" renderIfSinglePage="false"></rich:dataScroller>
+								</f:facet>
+							</rich:dataTable>
+						</b:column>
+					</b:row>
+				</h:form>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

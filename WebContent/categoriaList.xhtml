@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="templates/default.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<ui:define name="title">Cadastro - Categoria</ui:define>
+	<ui:define name="content">
+		<f:view>
+			<h:form>
+				<b:row>
+					<b:column offset="3" span="3">
+						<h2>Categoria</h2>
+					</b:column>
+				</b:row>
+
+				<rich:messages layout="table" infoLabelClass="messageInfo"
+					errorLabelClass="messageError">
+
+					<f:facet name="infoMarker">
+						<h:graphicImage value="imagenss/check.png" />
+					</f:facet>
+
+					<f:facet name="errorMarker">
+						<h:graphicImage value="imagenss/fail.png" />
+					</f:facet>
+
+				</rich:messages>
+				<b:row>
+					<b:column offset="3" span="3">
+						<h3>Consulta/Cadastro de Categoria</h3>
+					</b:column>
+				</b:row>
+				<b:row>
+					<b:column span="4" offset="3">
+						<h:inputText value="#{categoriaBean.categoriaList.texto}"
+							size="40" styleClass="form-control"></h:inputText>
+					</b:column>
+				</b:row>
+				<br />
+				<b:row>
+					<b:column offset="3" span="1">
+						<b:commandButton value="Buscar" look="primary"
+							action="#{categoriaBean.atualizar}" />
+					</b:column>
+					<b:column span="1">
+						<b:commandButton action="#{categoriaBean.novo}" value="Novo"
+							look="primary" />
+					</b:column>
+				</b:row>
+				<br />
+				<b:row>
+					<b:column offset="3" span="3">
+						<rich:dataTable id="categoriaList" rows="10"
+							style="width:750px; border:2px"
+							onrowmouseover="this.style.backgroundColor='#F1F1F1'"
+							onrowmouseout="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+							var="c" value="#{categoriaBean.lista}"
+							rendered="#{not empty categoriaBean.lista}">
+
+							<f:facet name="header">
+								<rich:columnGroup>
+									<rich:column colspan="15">
+										<h:outputText
+											value="Listas de Categorias (#{categoriaBean.categoriaList.size })" />
+									</rich:column>
+									<rich:column breakRowBefore="true">
+										<h:outputText value="Nome da categoria" />
+									</rich:column>
+									<rich:column>
+										<h:outputText value="Editar" />
+									</rich:column>
+								</rich:columnGroup>
+							</f:facet>
+
+							<rich:column>
+								<h:outputText value="#{c.descricao}" />
+							</rich:column>
+							<rich:column>
+								<h:commandButton action="#{categoriaBean.editar(c)}"
+									image="LayoutNovo/imagens/editar.png" />
+							</rich:column>
+							<f:facet name="footer">
+								<rich:dataScroller id="scroller" renderIfSinglePage="false"></rich:dataScroller>
+							</f:facet>
+						</rich:dataTable>
+					</b:column>
+				</b:row>
+			</h:form>
+		</f:view>
+	</ui:define>
+</ui:composition>

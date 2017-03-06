@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="templates/default.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<ui:define name="title">Registro de Compra</ui:define>
+	<ui:define name="content">
+		<f:view>
+			<script src="Scripts/jquery.price_format.1.7.js"
+				type="text/javascript"></script>
+
+			<f:event listener="#{compraBean.init}" type="preRenderView" />
+			<h:form>
+				<b:row>
+					<b:column offset="3" span="3">
+						<h2>Registro de Compra</h2>
+					</b:column>
+				</b:row>
+				<br />
+				<b:row>
+					<b:column offset="3" span="1">
+						<h4>
+							<h:outputLabel value="Fornecedor: " />
+						</h4>
+					</b:column>
+					<b:column span="3">
+						<h:selectOneMenu required="true"
+							requiredMessage="#{msg['compra.required.fornecedor']}"
+							value="#{compraBean.compra.fornecedor}"
+							converter="#{fornecedorConverter}" styleClass="form-control">
+							<f:selectItem itemValue="null" itemLabel="(Selecione)"
+								noSelectionOption="true" />
+							<f:selectItems value="#{compraBean.fornecedores}" var="f"
+								itemValue="#{f}" itemLabel="#{f.nome}" />
+						</h:selectOneMenu>
+					</b:column>
+				</b:row>
+				<b:row>
+					<b:column offset="3" span="1">
+						<h4>
+							<h:outputLabel value="Produto: " />
+						</h4>
+					</b:column>
+					<b:column span="3">
+						<h:selectOneMenu required="true"
+							requiredMessage="#{msg['compra.required.produto']}"
+							value="#{compraBean.compra.produto}"
+							converter="#{produtoConverter}" styleClass="form-control">
+							<f:selectItem itemValue="null" itemLabel="(Selecione)"
+								noSelectionOption="true" />
+							<f:selectItems value="#{compraBean.produtos}" var="p"
+								itemValue="#{p}" itemLabel="#{p.nome}" />
+							<f:ajax execute="change" render="qvalor valorcaixaent2"
+								listener="#{compraBean.produtoChanged}" resetValues="true" />
+						</h:selectOneMenu>
+					</b:column>
+				</b:row>
+				<b:row>
+					<b:column offset="3" span="1">
+						<h4>
+							<h:outputLabel value="Quantidade: " />
+						</h4>
+					</b:column>
+					<b:column span="3">
+						<h:inputText required="true" value="#{compraBean.quantidade}"
+							size="20" styleClass="form-control"></h:inputText>
+					</b:column>
+				</b:row>
+				<b:row>
+					<b:column offset="3" span="1">
+						<h4>
+							<h:outputLabel value="Valor: " />
+						</h4>
+					</b:column>
+					<b:column span="3">
+						<h:inputText class="price" required="true"
+							requiredMessage="#{msg['compra.required.valor']}"
+							value="#{compraBean.compra.valor}" size="20"
+							styleClass="form-control">
+							<f:convertNumber pattern="#,##0.00"></f:convertNumber>
+						</h:inputText>
+						<rich:jQuery id="qvalor" selector="#valorcaixaent2"
+							timing="domready"
+							query="priceFormat({
+						    		prefix: '',
+						    		centsSeparator: ',',
+						    		thousandsSeparator: '.'
+								})" />
+					</b:column>
+				</b:row>
+				<b:row>
+					<b:column offset="3" span="1">
+						<h4>
+							<h:outputLabel value="Observação: " />
+						</h4>
+					</b:column>
+					<b:column span="3">
+						<h:inputText id="observacao" styleClass="form-control"
+							value="#{compraBean.compra.observacao}" size="20"></h:inputText>
+					</b:column>
+				</b:row>
+				<b:row>
+					<b:column offset="6" span="1">
+						<b:commandButton value="Salvar" action="#{compraBean.salvar}"
+							look="primary" size="lg" />
+					</b:column>
+				</b:row>
+				<b:row>
+					<b:column offset="3" span="3">
+						<rich:messages layout="table" infoLabelClass="messageInfo"
+							errorLabelClass="messageError">
+
+							<f:facet name="infoMarker">
+								<h:graphicImage value="imagenss/check.png" />
+							</f:facet>
+
+							<f:facet name="errorMarker">
+								<h:graphicImage value="imagenss/fail.png" />
+							</f:facet>
+						</rich:messages>
+					</b:column>
+				</b:row>
+				<br></br>
+			</h:form>
+		</f:view>
+	</ui:define>
+</ui:composition>

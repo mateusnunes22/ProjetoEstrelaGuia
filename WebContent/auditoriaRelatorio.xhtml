@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="templates/default.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml" xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<ui:define name="title">Relatório - Auditoria</ui:define>
+	<ui:define name="content">
+		<f:view>
+			<div id="impmi">
+				<h:form>
+					<b:row>
+						<b:column offset="3" span="4">
+							<h2>Auditoria</h2>
+						</b:column>
+					</b:row>
+					<br />
+					<b:row>
+						<b:column offset="3" span="1">
+							<h4>
+								<h:outputLabel value="Inicial: " />
+							</h4>
+						</b:column>
+						<b:column span="3">
+							<b:datepicker tooltip="Data Inicial"
+								value="#{auditoriaBeanRpt.rpt.data.dataInicial}" />
+							<!-- <rich:calendar id="datin" popup="true" datePattern="dd/MM/yyyy"
+							enableManualInput="true"
+							value="#{auditoriaBeanRpt.rpt.data.dataInicial}">
+						</rich:calendar> -->
+						</b:column>
+					</b:row>
+					<b:row>
+						<b:column offset="3" span="1">
+							<h4>
+								<h:outputLabel value="Final: " />
+							</h4>
+						</b:column>
+						<b:column span="3">
+							<b:datepicker tooltip="Data Final"
+								value="#{auditoriaBeanRpt.rpt.data.dataFinal}" />
+							<!-- <rich:calendar id="datfi" popup="true" datePattern="dd/MM/yyyy"
+						enableManualInput="true"
+						value="#{auditoriaBeanRpt.rpt.data.dataFinal}">
+					</rich:calendar> -->
+						</b:column>
+					</b:row>
+
+					<b:row>
+						<b:column offset="6" span="1">
+							<b:commandButton value="Atualizar" look="primary"
+								action="#{auditoriaBeanRpt.atualizar}" />
+						</b:column>
+					</b:row>
+
+					<h:outputText value="#{auditoriaBeanRpt.rpt.texto }"
+						styleClass="label"
+						rendered="#{not empty auditoriaBeanRpt.relatorio}" />
+					<b:row>
+						<b:column offset="3" span="3">
+							<rich:dataTable id="Contaspagar"
+								onrowmouseover="this.style.backgroundColor='#F1F1F1'"
+								onrowmouseout="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+								style="width:750px; border:2px"
+								value="#{auditoriaBeanRpt.relatorio}" var="c"
+								rendered="#{not empty auditoriaBeanRpt.relatorio}" rows="10">
+
+
+								<f:facet name="header">
+									<rich:columnGroup>
+										<rich:column colspan="15">
+											<h:outputText
+												value="Auditoria (#{auditoriaBeanRpt.rpt.size})" />
+										</rich:column>
+										<rich:column breakRowBefore="true">
+											<h:outputText value="Usuario" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="Data" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="Hora" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="Tipo de Transação" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="Tabela" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="Id do objeto" />
+										</rich:column>
+									</rich:columnGroup>
+								</f:facet>
+
+								<rich:column>
+									<h:outputText value="#{c.nomeUsuario}" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{c.data}">
+										<f:convertDateTime pattern="dd/MM/yyyy" />
+									</h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{c.hora}">
+										<f:convertDateTime pattern="HH:mm" />
+									</h:outputText>
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{c.tipoTransacao}" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{c.tabela}" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{c.idObjeto}" />
+								</rich:column>
+
+								<f:facet name="footer">
+									<rich:dataScroller id="ds" renderIfSinglePage="false"></rich:dataScroller>
+								</f:facet>
+
+							</rich:dataTable>
+						</b:column>
+					</b:row>
+				</h:form>
+			</div>
+		</f:view>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="templates/default.xhtml"
+	xmlns:b="http://bootsfaces.net/ui" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<ui:define name="title">Relatório - Funcionário</ui:define>
+	<ui:define name="content">
+		<f:view>
+			<f:event listener="#{funcionarioBeanRpt.init}" type="preRenderView" />
+			<h:form>
+				<b:row>
+					<b:column offset="3" span="4">
+						<h2>Relatório de Funcionários</h2>
+					</b:column>
+				</b:row>
+				<br />
+				<b:row>
+					<b:column offset="3" span="1">
+						<h4>
+							<h:outputLabel value="Inicial: " />
+						</h4>
+					</b:column>
+					<b:column span="3">
+						<b:datepicker tooltip="Data Inicial"
+							value="#{funcionarioBeanRpt.rpt.data.dataInicial}" />
+						<!-- <rich:calendar id="datin" popup="true" datePattern="dd/MM/yyyy"
+							enableManualInput="true"
+							value="#{funcionarioBeanRpt.rpt.data.dataInicial}">
+						</rich:calendar> -->
+					</b:column>
+				</b:row>
+				<b:row>
+					<b:column offset="3" span="1">
+						<h4>
+							<h:outputLabel value="Final: " />
+						</h4>
+					</b:column>
+					<b:column span="3">
+						<b:datepicker tooltip="Data Final"
+							value="#{funcionarioBeanRpt.rpt.data.dataFinal}" />
+
+						<!-- <rich:calendar id="datfi" popup="true" datePattern="dd/MM/yyyy"
+						enableManualInput="true"
+						value="#{funcionarioBeanRpt.rpt.data.dataFinal}">
+					</rich:calendar> -->
+					</b:column>
+				</b:row>
+				<b:row>
+					<b:column offset="3" span="1">
+						<h4>
+							<h:outputLabel value="Funcionário: " />
+						</h4>
+					</b:column>
+					<b:column span="3">
+						<h:selectOneMenu id="clienteNome"
+							value="#{funcionarioBeanRpt.funcionario}"
+							converter="#{funcionarioConverter}" styleClass="form-control">
+							<f:selectItem itemValue="null" itemLabel="(Todos)"
+								noSelectionOption="true" />
+							<f:selectItems value="#{funcionarioBeanRpt.funcionarios}" var="f"
+								itemValue="#{f}" itemLabel="#{f.nome}" />
+						</h:selectOneMenu>
+					</b:column>
+				</b:row>
+				<b:row>
+					<b:column offset="6" span="1">
+						<b:commandButton value="Atualizar"
+							action="#{funcionarioBeanRpt.atualizar}" look="primary" />
+					</b:column>
+				</b:row>
+				<br />
+				<b:row>
+					<b:column offset="3" span="3">
+						<rich:dataTable id="Contaspagar"
+							onrowmouseover="this.style.backgroundColor='#F1F1F1'"
+							onrowmouseout="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+							style="width:750px; border:2px"
+							value="#{funcionarioBeanRpt.relatorio}" var="c"
+							rendered="#{not empty funcionarioBeanRpt.relatorio}" rows="10">
+
+							<f:facet name="header">
+								<rich:columnGroup>
+									<rich:column colspan="5">
+										<h:outputText
+											value="Lista do valor de vendas dos funcionarios" />
+									</rich:column>
+									<rich:column breakRowBefore="true">
+										<h:outputText value="Funcionario" />
+									</rich:column>
+									<rich:column>
+										<h:outputText value="Produto" />
+									</rich:column>
+									<rich:column>
+										<h:outputText value="Serviço" />
+									</rich:column>
+									<rich:column>
+										<h:outputText value="Total" />
+									</rich:column>
+									<rich:column>
+										<h:outputText value="Detalhamento" />
+									</rich:column>
+								</rich:columnGroup>
+							</f:facet>
+
+							<rich:column>
+								<h:outputText value="#{c.nome}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{c.valorProduto}">
+									<f:convertNumber pattern="#,##0.00"></f:convertNumber>
+								</h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{c.valorServico}">
+									<f:convertNumber pattern="#,##0.00"></f:convertNumber>
+								</h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{c.valorTotal}">
+									<f:convertNumber pattern="#,##0.00"></f:convertNumber>
+								</h:outputText>
+							</rich:column>
+							<rich:column>
+								<h:commandButton action="#{funcionarioBeanRpt.detalharVenda(c)}"
+									rendered="#{c.funcionario}"
+									image="LayoutNovo/imagens/editar.png" />
+							</rich:column>
+
+							<f:facet name="footer">
+								<rich:dataScroller id="ds" renderIfSinglePage="false"></rich:dataScroller>
+							</f:facet>
+
+						</rich:dataTable>
+					</b:column>
+				</b:row>
+			</h:form>
+		</f:view>
+	</ui:define>
+</ui:composition>

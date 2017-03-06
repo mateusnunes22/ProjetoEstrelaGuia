@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="templates/default.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<ui:define name="title">Cadastro - Funcionário</ui:define>
+	<ui:define name="content">
+		<f:view>
+			<div id="impmi2">
+				<h:form>
+					<b:row>
+						<b:column offset="3" span="3">
+							<h2>Funcionário</h2>
+						</b:column>
+					</b:row>
+
+					<b:row>
+						<b:column offset="3" span="3">
+							<h3>Consulta/Cadastro de Funcionário</h3>
+						</b:column>
+					</b:row>
+					<b:row>
+						<b:column span="4" offset="3">
+							<b:inputText value="#{funcionarioBean.funcionarioList.texto}"
+								size="40"></b:inputText>
+						</b:column>
+					</b:row>
+					<b:row>
+						<b:column offset="3" span="1">
+							<b:commandButton value="Buscar" look="primary"
+								action="#{funcionarioBean.atualizar}" />
+						</b:column>
+
+						<b:column span="1">
+							<b:commandButton action="#{funcionarioBean.novo}" value="Novo"
+								look="primary" />
+						</b:column>
+					</b:row>
+					<br />
+					<b:row>
+						<b:column offset="3" span="3">
+							<rich:dataTable id="Liberarr"
+								onrowmouseover="this.style.backgroundColor='#F1F1F1'"
+								onrowmouseout="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+								style="width:750px; border:2px" value="#{funcionarioBean.lista}"
+								var="c" rendered="#{not empty funcionarioBean.lista}" rows="10">
+
+
+								<f:facet name="header">
+									<rich:columnGroup>
+										<rich:column colspan="15">
+											<h:outputText
+												value="Listas de Funcionários (#{funcionarioBean.funcionarioList.size })" />
+										</rich:column>
+										<rich:column breakRowBefore="true">
+											<h:outputText value="Nome" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="Especialidade" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="Editar" />
+										</rich:column>
+									</rich:columnGroup>
+								</f:facet>
+
+								<rich:column>
+									<h:outputText value="#{c.nome}" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="#{c.especialidade}" />
+								</rich:column>
+								<rich:column>
+									<h:commandButton action="#{funcionarioBean.editar(c)}"
+										image="LayoutNovo/imagens/editar.png" />
+								</rich:column>
+
+								<f:facet name="footer">
+									<rich:dataScroller id="ds" renderIfSinglePage="false"></rich:dataScroller>
+								</f:facet>
+
+							</rich:dataTable>
+
+							<rich:messages layout="table" infoLabelClass="messageInfo"
+								errorLabelClass="messageError">
+
+								<f:facet name="infoMarker">
+									<h:graphicImage value="imagenss/check.png" />
+								</f:facet>
+
+								<f:facet name="errorMarker">
+									<h:graphicImage value="imagenss/fail.png" />
+								</f:facet>
+
+							</rich:messages>
+						</b:column>
+					</b:row>
+				</h:form>
+			</div>
+		</f:view>
+	</ui:define>
+</ui:composition>
